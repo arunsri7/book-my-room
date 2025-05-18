@@ -1,0 +1,671 @@
+{
+	"info": {
+		"_postman_id": "your-collection-id",
+		"name": "Book My Room API",
+		"description": "API for managing room and resource bookings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"companyId\": \"company123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "register"]
+						},
+						"description": "Register a new user. Returns a JWT token."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"companyId\": \"company123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/register",
+									"host": ["{{base_url}}"],
+									"path": ["api", "auth", "register"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Login with user credentials. Returns a JWT token."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": ["{{base_url}}"],
+									"path": ["api", "auth", "login"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "SUPER_ADMIN Endpoints",
+			"description": "Endpoints accessible only to SUPER_ADMIN users",
+			"item": [
+				{
+					"name": "Companies",
+					"item": [
+						{
+							"name": "Get All Companies",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/companies",
+									"host": ["{{base_url}}"],
+									"path": ["api", "companies"]
+								},
+								"description": "Get all companies. Requires SUPER_ADMIN role."
+							}
+						},
+						{
+							"name": "Create Company",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Acme Corp\",\n    \"description\": \"A leading technology company\",\n    \"address\": \"123 Business St\",\n    \"contactEmail\": \"contact@acmecorp.com\",\n    \"contactPhone\": \"+1-555-0123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/companies",
+									"host": ["{{base_url}}"],
+									"path": ["api", "companies"]
+								},
+								"description": "Create a new company. Requires SUPER_ADMIN role."
+							}
+						},
+						{
+							"name": "Get Company by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/companies/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "companies", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "company123"
+										}
+									]
+								},
+								"description": "Get company details by ID. Requires SUPER_ADMIN role."
+							}
+						},
+						{
+							"name": "Update Company",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Acme Corp Updated\",\n    \"description\": \"Updated description\",\n    \"address\": \"456 Business Ave\",\n    \"contactEmail\": \"new-contact@acmecorp.com\",\n    \"contactPhone\": \"+1-555-0124\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/companies/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "companies", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "company123"
+										}
+									]
+								},
+								"description": "Update an existing company. Requires SUPER_ADMIN role."
+							}
+						},
+						{
+							"name": "Delete Company",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/companies/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "companies", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "company123"
+										}
+									]
+								},
+								"description": "Delete a company. Requires SUPER_ADMIN role."
+							}
+						}
+					]
+				},
+				{
+					"name": "Bookings",
+					"item": [
+						{
+							"name": "Get All Bookings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings"]
+								},
+								"description": "Get all bookings across all companies. SUPER_ADMIN only."
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "COMPANY_ADMIN Endpoints",
+			"description": "Endpoints accessible to COMPANY_ADMIN users (and SUPER_ADMIN)",
+			"item": [
+				{
+					"name": "Resources",
+					"item": [
+						{
+							"name": "Create Resource",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Conference Room A\",\n    \"description\": \"Main conference room\",\n    \"type\": \"CONFERENCE_ROOM\",\n    \"officeId\": \"office123\",\n    \"companyId\": \"company123\",\n    \"capacity\": 10,\n    \"isAvailable\": true\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/resources",
+									"host": ["{{base_url}}"],
+									"path": ["api", "resources"]
+								},
+								"description": "Create a new resource in your company. Requires COMPANY_ADMIN role."
+							}
+						},
+						{
+							"name": "Update Resource",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Conference Room A Updated\",\n    \"description\": \"Updated description\",\n    \"type\": \"CONFERENCE_ROOM\",\n    \"officeId\": \"office123\",\n    \"companyId\": \"company123\",\n    \"capacity\": 15,\n    \"isAvailable\": true\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/resources/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "resources", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "resource123"
+										}
+									]
+								},
+								"description": "Update a resource in your company. Requires COMPANY_ADMIN role."
+							}
+						},
+						{
+							"name": "Delete Resource",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/resources/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "resources", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "resource123"
+										}
+									]
+								},
+								"description": "Delete a resource from your company. Requires COMPANY_ADMIN role."
+							}
+						}
+					]
+				},
+				{
+					"name": "Bookings",
+					"item": [
+						{
+							"name": "Get Company Bookings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/company/:companyId",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings", "company", ":companyId"],
+									"variable": [
+										{
+											"key": "companyId",
+											"value": "company123"
+										}
+									]
+								},
+								"description": "Get all bookings for your company. Available to COMPANY_ADMIN role."
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Common Endpoints",
+			"description": "Endpoints accessible to all authenticated users (SUPER_ADMIN, COMPANY_ADMIN, and USER)",
+			"item": [
+				{
+					"name": "Resources",
+					"item": [
+						{
+							"name": "Get All Resources",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/resources",
+									"host": ["{{base_url}}"],
+									"path": ["api", "resources"]
+								},
+								"description": "Get all resources you have access to."
+							}
+						},
+						{
+							"name": "Get Resource by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/resources/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "resources", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "resource123"
+										}
+									]
+								},
+								"description": "Get resource details by ID."
+							}
+						},
+						{
+							"name": "Get Resources by Company",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/resources/company/:companyId?officeId=office123&type=CONFERENCE_ROOM",
+									"host": ["{{base_url}}"],
+									"path": ["api", "resources", "company", ":companyId"],
+									"query": [
+										{
+											"key": "officeId",
+											"value": "office123"
+										},
+										{
+											"key": "type",
+											"value": "CONFERENCE_ROOM"
+										}
+									],
+									"variable": [
+										{
+											"key": "companyId",
+											"value": "company123"
+										}
+									]
+								},
+								"description": "Get all resources for a company with optional filters."
+							}
+						}
+					]
+				},
+				{
+					"name": "Bookings",
+					"item": [
+						{
+							"name": "Create Booking",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"resourceId\": \"resource123\",\n    \"startTime\": \"2024-05-20T10:00:00\",\n    \"endTime\": \"2024-05-20T11:00:00\",\n    \"purpose\": \"Team Meeting\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings"]
+								},
+								"description": "Create a new booking."
+							}
+						},
+						{
+							"name": "Get Booking by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "booking123"
+										}
+									]
+								},
+								"description": "Get booking details by ID."
+							}
+						},
+						{
+							"name": "Update Booking",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"resourceId\": \"resource123\",\n    \"startTime\": \"2024-05-20T14:00:00\",\n    \"endTime\": \"2024-05-20T15:00:00\",\n    \"purpose\": \"Updated Team Meeting\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "booking123"
+										}
+									]
+								},
+								"description": "Update an existing booking."
+							}
+						},
+						{
+							"name": "Delete Booking",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/:id",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings", ":id"],
+									"variable": [
+										{
+											"key": "id",
+											"value": "booking123"
+										}
+									]
+								},
+								"description": "Delete a booking."
+							}
+						},
+						{
+							"name": "Get User Bookings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/user/:userId?startTime=2024-05-20T00:00:00&endTime=2024-05-20T23:59:59",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings", "user", ":userId"],
+									"query": [
+										{
+											"key": "startTime",
+											"value": "2024-05-20T00:00:00"
+										},
+										{
+											"key": "endTime",
+											"value": "2024-05-20T23:59:59"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "user123"
+										}
+									]
+								},
+								"description": "Get all bookings for a user with optional time range."
+							}
+						},
+						{
+							"name": "Get Resource Bookings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/resource/:resourceId?startTime=2024-05-20T00:00:00&endTime=2024-05-20T23:59:59",
+									"host": ["{{base_url}}"],
+									"path": ["api", "bookings", "resource", ":resourceId"],
+									"query": [
+										{
+											"key": "startTime",
+											"value": "2024-05-20T00:00:00"
+										},
+										{
+											"key": "endTime",
+											"value": "2024-05-20T23:59:59"
+										}
+									],
+									"variable": [
+										{
+											"key": "resourceId",
+											"value": "resource123"
+										}
+									]
+								},
+								"description": "Get all bookings for a resource with optional time range."
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token",
+			"value": "your-jwt-token-here"
+		}
+	]
+} 
