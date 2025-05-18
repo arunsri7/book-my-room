@@ -11,8 +11,10 @@ A booking system that allows companies to manage and book various resources like
 - JWT-based authentication
 - MongoDB for data persistence
 
+## PostmanCollection
+ https://github.com/arunsri7/book-my-room/blob/main/BookMyRoom.postman_collection.json
 
-### Key Entities
+## Key Entities
 
 1. **Company**
    - Root entity that owns resources and users
@@ -42,36 +44,26 @@ A booking system that allows companies to manage and book various resources like
 - **Java Version**: 17
 
 ## Setup Instructions
+```
+1. Prerequisites
+✅ Docker (or Colima if you're on macOS)
 
-1. **Prerequisites**
-   - Java 17 or higher
-   - MongoDB
-   - Maven
+2. Setup Steps
+# Clone the repository
+git clone https://github.com/yourusername/book-my-room.git
 
-2. **Database Setup**
-   ```bash
-   # Start MongoDB
-   mongod --dbpath /path/to/data/db
-   ```
+# Navigate to the project directory
+cd book-my-room
 
-3. **Application Setup**
-   ```bash
-   # Clone the repository
-   git clone https://github.com/yourusername/book-my-room.git
-   
-   # Navigate to project directory
-   cd book-my-room
-   
-   # run the docker daemon or colima
-
-
-   run docker-compose up --build
-   ```
+# Start the Docker daemon (or ensure Colima is running)
+# Then spin up the application
+docker-compose up --build
+```
 
 ## Future Improvements
 
 
-0. Change the name of the application. Should be something like book-my-resources
+0. Change the name of the application. Should be something like book-my-resources :P
 
 1. **API Enhancements**
    - Add better documentation
@@ -91,6 +83,7 @@ A booking system that allows companies to manage and book various resources like
    - Calendar integration
    - Resource availability calendar
    - Return Available slots
+   - Store and retrieve images for the resources 
 
 4. **Performance Optimizations**
    - Add caching
@@ -104,3 +97,7 @@ A booking system that allows companies to manage and book various resources like
 6. **Testing**
    - Add unit tests
    - Add integration tests
+
+## Flow
+![diagram](https://github.com/user-attachments/assets/f840116b-9450-4f07-a20a-9f3587f1b9b7)
+You can find a more interactive diagram here -> https://gitdiagram.com/arunsri7/book-my-room
